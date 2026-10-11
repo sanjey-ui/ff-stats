@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solo Leveling: Hunter Management</title>
+  <meta name="description" content="Hunter login for the Solo Leveling management game.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="brand">
+      <p class="eyebrow">[ SYSTEM ]</p>
+      <h1>Hunter Management</h1>
+      <p class="sub">Select your hunter profile to enter the Gate.</p>
+    </header>
+
+    <!-- Screen 1: pick a hunter -->
+    <section id="screen-select" class="screen">
+      <div id="roster" class="roster" role="list"></div>
+    </section>
+
+    <!-- Screen 2: password -->
+    <section id="screen-login" class="screen hidden">
+      <form id="login-form" class="panel" autocomplete="off" novalidate>
+        <p class="eyebrow" id="login-eyebrow">[ LOGIN ]</p>
+        <h2 id="login-title"></h2>
+        <p id="login-hint" class="hint"></p>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" minlength="6" autocomplete="current-password" required>
+
+        <div id="confirm-row" class="hidden">
+          <label for="confirm">Confirm password</label>
+          <input id="confirm" name="confirm" type="password" minlength="6" autocomplete="new-password">
+        </div>
+
+        <p id="login-error" class="error" role="alert"></p>
+
+        <div class="actions">
+          <button type="button" id="back" class="ghost">Back</button>
+          <button type="submit" id="submit">Enter</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Screen 3: dashboard placeholder -->
+    <section id="screen-home" class="screen hidden">
+      <div class="panel">
+        <p class="eyebrow">[ PLAYER STATUS ]</p>
+        <h2 id="home-name"></h2>
+        <p id="home-title" class="hint"></p>
+
+        <dl class="status">
+          <div><dt>Level</dt><dd>1</dd></div>
+          <div><dt>Rank</dt><dd>E</dd></div>
+          <div><dt>Class</dt><dd id="home-kind"></dd></div>
+        </dl>
+
+        <ul class="bars">
+          <li><span>HP</span><i style="--v:100%"></i></li>
+          <li><span>MP</span><i style="--v:100%"></i></li>
+        </ul>
+
+        <ul class="stats">
+          <li><span>STR</span><b>10</b></li>
+          <li><span>AGI</span><b>10</b></li>
+          <li><span>INT</span><b>10</b></li>
+          <li><span>VIT</span><b>10</b></li>
+          <li><span>SENSE</span><b>10</b></li>
+        </ul>
+
+        <p class="hint">The Gate is still closed. The game itself comes next.</p>
+        <div class="actions">
+          <button type="button" id="logout" class="ghost">Log out</button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      Profiles and passwords are stored only in this browser. This is a game login, not real security.
+    </footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
