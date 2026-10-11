@@ -1,7 +1,29 @@
 # Solo Leveling: Hunter Management
 
 A Solo Leveling-style management game built with plain HTML, CSS and JavaScript.
-This first version is the login layer only.
+Six guilds compete for the most money in a 30-day month.
+
+## The game
+
+- **Six guilds:** Sanjey, ChatGPT, Claude, Gemini, Perplexity and Grok. Each leader runs a guild and starts with **Rs 50 crore**.
+- **Teams:** a guild holds up to **50 hunters**. A party of up to **15** fights in dungeons.
+- **Market:** buy hunters from the shared pool of 10,000 (each hunter belongs to one guild). Release a hunter to get 60% back.
+- **Dungeons:** 30 new dungeons open every day (E to S rank) and stay open for 3 days. Press **Play**,
+  check the estimated win chance, then **Fight** and watch the battle. A cleared dungeon is gone for every guild.
+  A defeat costs 15% of the reward. Each guild gets 5 entries per day.
+- **Leader growth:** the guild leader gains +1 to a random stat after every dungeon the guild clears.
+- **Month end:** press **End day** on the Leaderboard tab. After day 30, the guild with the **most money wins**.
+- **Bot mode:** the five AI guilds start with bot mode on, so a bot plays them when the day ends
+  (simple strategies: recruit, then take dungeons it expects to win). Turn it off in a guild's Guild tab to play it yourself.
+  These bots are game strategies, not the real AI assistants.
+- **Logging in as another guild:** log out and pick a different hunter. All six guilds share one saved game in this browser.
+
+Battle rules, rewards and prices are game-balance numbers, not canon. To check the balance:
+
+```
+node tools/simulate.js            # win-rate table + one full month with all guilds on bots
+node tools/simulate.js months 20  # tally winners over 20 simulated months
+```
 
 ## Hunter profiles
 

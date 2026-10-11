@@ -44,44 +44,18 @@
       </form>
     </section>
 
-    <!-- Screen 3: dashboard placeholder -->
-    <section id="screen-home" class="screen hidden">
-      <div class="panel">
-        <p class="eyebrow">[ PLAYER STATUS ]</p>
-        <h2 id="home-name"></h2>
-        <p id="home-title" class="hint"></p>
-
-        <dl class="status">
-          <div><dt>Level</dt><dd>1</dd></div>
-          <div><dt>Rank</dt><dd>E</dd></div>
-          <div><dt>Class</dt><dd id="home-kind"></dd></div>
-        </dl>
-
-        <ul class="bars">
-          <li><span>HP</span><i style="--v:100%"></i></li>
-          <li><span>MP</span><i style="--v:100%"></i></li>
-        </ul>
-
-        <ul class="stats">
-          <li><span>STR</span><b>10</b></li>
-          <li><span>AGI</span><b>10</b></li>
-          <li><span>INT</span><b>10</b></li>
-          <li><span>VIT</span><b>10</b></li>
-          <li><span>SENSE</span><b>10</b></li>
-        </ul>
-
-        <p class="hint">The Gate is still closed. The game itself comes next.</p>
-        <div class="actions">
-          <button type="button" id="logout" class="ghost">Log out</button>
-        </div>
-      </div>
+    <!-- Screen 3: the game -->
+    <section id="screen-game" class="screen hidden">
+      <div id="game"></div>
     </section>
 
     <footer class="foot">
-      Profiles and passwords are stored only in this browser. This is a game login, not real security.
+      Profiles, passwords and game progress are stored only in this browser. This is a game login, not real security.
       <br><a href="hunters.html">Browse the Hunter Market (10,000 hunters)</a>
     </footer>
   </main>
+  <script src="engine.js"></script>
+  <script src="game-ui.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

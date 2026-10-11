@@ -65,9 +65,10 @@ async function hashPassword(password, salt) {
 let pending = null; // roster entry currently being logged into
 
 function show(screenId) {
-  ['screen-select', 'screen-login', 'screen-home'].forEach((id) => {
+  ['screen-select', 'screen-login', 'screen-game'].forEach((id) => {
     $(id).classList.toggle('hidden', id !== screenId);
   });
+  document.body.classList.toggle('in-game', screenId === 'screen-game');
 }
 
 function findHunter(username) {
@@ -129,10 +130,8 @@ function openLogin(hunter) {
 function openHome(username) {
   const hunter = findHunter(username);
   if (!hunter) { setSession(null); renderRoster(); show('screen-select'); return; }
-  $('home-name').textContent = hunter.display + ' (@' + hunter.username + ')';
-  $('home-title').textContent = hunter.title;
-  $('home-kind').textContent = hunter.kind;
-  show('screen-home');
+  show('screen-game');
+  GameUI.start(username, onLogout);
 }
 
 /* ---------- actions ---------- */
@@ -192,6 +191,7 @@ function onBack() {
 }
 
 function onLogout() {
+  GameUI.stop();
   setSession(null);
   pending = null;
   renderRoster();
@@ -201,7 +201,6 @@ function onLogout() {
 /* ---------- boot ---------- */
 $('login-form').addEventListener('submit', onSubmit);
 $('back').addEventListener('click', onBack);
-$('logout').addEventListener('click', onLogout);
 
 renderRoster();
 const existing = getSession();
