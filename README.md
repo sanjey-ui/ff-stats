@@ -17,6 +17,30 @@ This first version is the login layer only.
 Each profile starts **unclaimed**. The first login on a profile sets its password;
 after that, the same password is required.
 
+## Hunter Market (10,000 hunters)
+
+`players.json` and `players.csv` hold 10,000 generated hunters, browsable at `hunters.html`.
+
+| Rank | Count | Power (sum of 5 stats) | Recruit price (INR) |
+|------|------:|------------------------|---------------------|
+| E  | 6,000 | 50 - 99 | 5,000 - 25,000 |
+| D  | 2,500 | 100 - 299 | 30,000 - 1.5 lakh |
+| C  | 1,000 | 300 - 699 | 2 - 8 lakh |
+| B  | 350 | 700 - 1,499 | 10 - 40 lakh |
+| A  | 120 | 1,500 - 3,999 | 60 lakh - 3 crore |
+| S  | 29 | 4,000 - 9,999 | 8 - 40 crore |
+| National-Level | 1 | 10,000+ | about 150 - 300 crore |
+
+Every stat (STR, AGI, INT, VIT, SENSE) starts at a minimum of 10. Class (Fighter, Tanker,
+Assassin, Mage, Ranger, Healer) shapes how the stat points are split and nudges the price
+(Healers cost the most). Rank counts are exact, and the data is reproducible:
+
+```
+python3 tools/generate_players.py
+```
+
+All values are game-balance numbers, not canon from the story.
+
 ## How the login works
 
 - No passwords are stored in this repo. Only a salted PBKDF2 (SHA-256) hash is kept.
