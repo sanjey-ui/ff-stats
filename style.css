@@ -1,0 +1,236 @@
+/*
+ * Gate Access - Hunter login
+ * Theme: you present a Hunter Association license at a rune-sealed Gate.
+ * Palette: obsidian (dominant), shadow violet glow, bone paper, crimson for broken seals.
+ */
+
+@font-face { font-family: "Cinzel"; src: url("fonts/cinzel-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Cinzel"; src: url("fonts/cinzel-latin-700-normal.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Barlow Semi Condensed"; src: url("fonts/barlow-semi-condensed-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Barlow Semi Condensed"; src: url("fonts/barlow-semi-condensed-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+
+:root {
+  --ink: #08060d;
+  --violet: #5b21c4;
+  --violet-hi: #7b35f0;
+  --glow: #b07cff;
+  --bone: #ece3cf;
+  --bone-2: #d9cdb0;
+  --text: #1d1428;
+  --muted: #6b5a82;
+  --crimson: #c4143c;
+  --n: 20px; /* notched-corner size */
+  --display: "Cinzel", "Trajan Pro", Georgia, serif;
+  --ui: "Barlow Semi Condensed", "Arial Narrow", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+
+body {
+  margin: 0;
+  color: var(--bone);
+  font-family: var(--ui);
+  font-size: 16px;
+  line-height: 1.4;
+  background:
+    radial-gradient(800px 560px at 50% 46%, #2b1157 0%, transparent 72%),
+    radial-gradient(1100px 700px at 85% 115%, #3a0b2c 0%, transparent 60%),
+    var(--ink);
+  overflow-x: hidden;
+}
+
+/* grain + vignette */
+body::before, body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 1; }
+body::before {
+  opacity: .1;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+body::after { background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, .7) 100%); }
+
+.noscript { position: relative; z-index: 5; margin: 0; padding: 12px; text-align: center; background: var(--crimson); color: #fff; }
+
+/* ---------- the Gate (portal) ---------- */
+.bg { position: fixed; inset: 0; display: grid; place-items: center; z-index: 0; overflow: hidden; }
+.portal {
+  width: min(128vmin, 1000px);
+  height: auto;
+  transition: transform 1.4s cubic-bezier(.2, .8, .2, 1), filter 1.4s, opacity 1.4s;
+  filter: drop-shadow(0 0 22px rgba(123, 53, 240, .45));
+}
+.ring { fill: none; stroke: var(--violet-hi); stroke-width: 1.5; opacity: .75; }
+.ring.thin { stroke-width: 1; opacity: .5; }
+.ring.dashed { stroke: var(--glow); stroke-dasharray: 3 11; stroke-width: 2; }
+.ring.ticks { stroke: var(--glow); stroke-width: 16; stroke-dasharray: 1.5 17.5; opacity: .45; }
+.ring.star { stroke: var(--glow); stroke-width: 1.4; opacity: .6; }
+.rune { fill: none; stroke: var(--glow); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
+.eye { fill: var(--glow); animation: pulse 3.2s ease-in-out infinite; transform-origin: 50% 50%; }
+
+.spin-a { transform-origin: 50% 50%; animation: spin 140s linear infinite; }
+.spin-b { transform-origin: 50% 50%; animation: spin 90s linear infinite reverse; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes pulse { 0%, 100% { opacity: .55; transform: scale(1); } 50% { opacity: 1; transform: scale(1.35); } }
+
+/* ---------- layout ---------- */
+.stage {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 28px 16px;
+}
+
+/* ---------- the Hunter License ---------- */
+.license {
+  width: min(100%, 460px);
+  filter: drop-shadow(0 0 26px rgba(123, 53, 240, .5)) drop-shadow(0 18px 30px rgba(0, 0, 0, .6));
+  transition: opacity .6s, transform .6s, visibility 0s linear 0s;
+}
+.license.shake { animation: shake .45s; }
+
+.lic-frame,
+.lic-body {
+  clip-path: polygon(var(--n) 0, calc(100% - var(--n)) 0, 100% var(--n), 100% calc(100% - var(--n)), calc(100% - var(--n)) 100%, var(--n) 100%, 0 calc(100% - var(--n)), 0 var(--n));
+}
+.lic-frame { padding: 2px; background: linear-gradient(135deg, var(--glow), var(--violet) 55%, var(--glow)); }
+.lic-body {
+  position: relative;
+  color: var(--text);
+  background-color: var(--bone);
+  background-image:
+    radial-gradient(ellipse 420px 220px at 15% 0%, rgba(255, 255, 255, .55), rgba(255, 255, 255, 0) 70%),
+    repeating-linear-gradient(135deg, rgba(29, 20, 40, .045) 0, rgba(29, 20, 40, .045) 1px, rgba(29, 20, 40, 0) 1px, rgba(29, 20, 40, 0) 7px);
+  padding: 26px 28px 0;
+}
+
+.lic-head { display: flex; align-items: center; gap: 14px; }
+.crest { width: 46px; height: 46px; flex: none; color: var(--violet); }
+.kicker { margin: 0; font-weight: 600; font-size: .74rem; letter-spacing: .26em; text-transform: uppercase; color: var(--muted); }
+h1 { margin: 2px 0 0; font: 700 1.45rem/1.1 var(--display); letter-spacing: .04em; color: var(--text); }
+
+.lic-mid { display: grid; grid-template-columns: 96px 1fr; gap: 22px; margin-top: 22px; align-items: start; }
+
+.portrait { margin: 0; position: relative; width: 96px; height: 116px; border: 2px solid var(--text); background: #1d1428; overflow: hidden; }
+.portrait svg { display: block; width: 100%; height: 100%; }
+.stamp {
+  position: absolute; left: -6px; right: -6px; bottom: 16px; text-align: center;
+  font: 700 .7rem/1 var(--display); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--crimson); border: 2px solid currentColor; padding: 4px 0; background: rgba(236, 227, 207, .9);
+  transform: rotate(-11deg); transition: color .4s;
+}
+.stamp.ok { color: var(--violet); }
+
+.field { margin-bottom: 16px; }
+label { display: block; font-weight: 600; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+input {
+  width: 100%;
+  margin-top: 2px;
+  padding: 7px 2px 6px;
+  font: 600 1.15rem/1.2 var(--ui);
+  letter-spacing: .04em;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid var(--text);
+  border-radius: 0;
+  transition: border-color .2s, box-shadow .2s;
+}
+input:focus { outline: none; border-bottom-color: var(--violet-hi); box-shadow: 0 8px 12px -10px var(--violet-hi); }
+input:disabled { opacity: .5; }
+input:-webkit-autofill { -webkit-text-fill-color: var(--text); box-shadow: 0 0 0 100px var(--bone) inset; }
+
+.keyrow { position: relative; }
+.keyrow input { padding-right: 78px; }
+.reveal {
+  position: absolute; right: 0; bottom: 6px; width: 68px; padding: 4px 0; text-align: center; cursor: pointer;
+  font: 600 .7rem var(--ui); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--violet); background: transparent; border: 1px solid var(--violet);
+}
+.reveal:hover { background: var(--violet); color: var(--bone); }
+.reveal:focus-visible { outline: 2px solid var(--violet-hi); outline-offset: 2px; }
+
+/* gate seals: five diamonds, broken ones turn crimson */
+.seals-row { display: flex; align-items: center; justify-content: space-between; margin: 4px 0 8px; }
+.seals-label { font-weight: 600; font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.seals { display: inline-flex; gap: 8px; filter: drop-shadow(0 0 5px rgba(176, 124, 255, .85)); }
+.seals i {
+  display: block; width: 16px; height: 16px; background: var(--violet-hi);
+  clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  transition: background .3s, transform .3s;
+}
+.seals i.broken { background: var(--crimson); transform: scale(.7) rotate(18deg); opacity: .8; }
+.seals i.breaking { animation: crack .5s; }
+
+.msg { min-height: 2.6em; margin: 0 0 8px; font-weight: 600; font-size: .95rem; color: var(--crimson); }
+.msg.warn { color: var(--muted); }
+
+.btn-wrap { filter: drop-shadow(0 6px 12px rgba(91, 33, 196, .55)); }
+.open {
+  display: block; width: 100%; min-height: 48px; padding: 14px 18px; line-height: 1.2; cursor: pointer; border: 0; color: #fff;
+  font: 700 .95rem var(--display); letter-spacing: .16em; text-transform: uppercase;
+  background: linear-gradient(135deg, var(--violet-hi), #46119b);
+  clip-path: polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px);
+  transition: transform .15s, filter .15s;
+}
+.open:hover:not(:disabled) { filter: brightness(1.18); transform: translateY(-1px); }
+.open:active:not(:disabled) { transform: translateY(1px); }
+.open:focus-visible { outline: none; box-shadow: inset 0 0 0 3px var(--bone); }
+.open:disabled { cursor: not-allowed; filter: grayscale(.6) brightness(.8); }
+
+.lic-foot { margin: 22px -28px 0; }
+.holo {
+  height: 6px;
+  background: linear-gradient(90deg, #7b35f0, #e07bff, #6fd6ff, #ffd37b, #7b35f0);
+  background-size: 300% 100%;
+  animation: holo 7s linear infinite;
+}
+.foot-row {
+  display: flex; justify-content: space-between; gap: 12px; padding: 10px 28px 12px;
+  background: #1d1428; color: #cdbbee;
+  font-weight: 600; font-size: .7rem; letter-spacing: .16em; text-transform: uppercase;
+}
+.foot-row b { color: var(--bone); }
+
+@keyframes holo { to { background-position: -300% 0; } }
+@keyframes shake { 0%, 100% { transform: none; } 20% { transform: translateX(-9px); } 40% { transform: translateX(8px); } 60% { transform: translateX(-5px); } 80% { transform: translateX(3px); } }
+@keyframes crack { 0% { transform: scale(1.5); background: #fff; } 100% { transform: scale(.7) rotate(18deg); } }
+
+/* ---------- welcome (after the Gate opens) ---------- */
+.welcome {
+  position: absolute; inset: 0; z-index: 3; display: grid; align-content: center; justify-items: center;
+  text-align: center; padding: 24px; opacity: 0; visibility: hidden; transform: translateY(14px);
+  transition: opacity .8s .5s, transform .8s .5s, visibility 0s linear 1.3s;
+}
+.welcome .kicker { color: var(--glow); }
+.welcome h2 { margin: 6px 0 10px; font: 700 clamp(1.8rem, 6vw, 3.2rem)/1.1 var(--display); letter-spacing: .05em; text-shadow: 0 0 24px rgba(176, 124, 255, .8); }
+.rank-line { margin: 0; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--bone); }
+.note { margin: 10px 0 22px; color: #bcaad8; }
+.ghost {
+  padding: 11px 22px; cursor: pointer; font: 700 .85rem var(--display); letter-spacing: .16em; text-transform: uppercase;
+  color: var(--bone); background: transparent; border: 1px solid var(--glow);
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+}
+.ghost:hover { background: var(--violet); }
+.ghost:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--bone); }
+
+body.gate-open .portal { transform: scale(1.35); filter: drop-shadow(0 0 60px rgba(176, 124, 255, .9)) brightness(1.5); }
+body.gate-open .license { opacity: 0; transform: scale(.94) translateY(10px); visibility: hidden; transition: opacity .5s, transform .5s, visibility 0s linear .5s; pointer-events: none; }
+body.gate-open .welcome { opacity: 1; visibility: visible; transform: none; transition: opacity .8s .5s, transform .8s .5s, visibility 0s linear .5s; }
+
+/* ---------- small screens ---------- */
+@media (max-width: 440px) {
+  :root { --n: 14px; }
+  .lic-body { padding: 22px 20px 0; }
+  .lic-foot { margin: 20px -20px 0; }
+  .foot-row { padding: 10px 20px 12px; font-size: .64rem; }
+  .lic-mid { grid-template-columns: 1fr; gap: 0; }
+  .portrait { display: none; }
+  h1 { font-size: 1.25rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+}

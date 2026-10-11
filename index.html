@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08060d">
+  <title>Gate Access - Hunter Login</title>
+  <meta name="description" content="Present your Hunter License to open the Gate.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Cpath d='M22 3 39 12.5v19L22 41 5 31.5v-19Z' fill='%2308060d' stroke='%23b07cff' stroke-width='3'/%3E%3Cpath d='M15 30V21q0-9 7-9t7 9v9' fill='none' stroke='%23b07cff' stroke-width='3'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <noscript><p class="noscript">This gate needs JavaScript to open.</p></noscript>
+
+  <!-- the Gate: rune portal behind everything -->
+  <div class="bg" aria-hidden="true">
+    <svg class="portal" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <symbol id="r1" overflow="visible"><path d="M0 -11V11M0 -5L7 -11M0 3L7 -3"/></symbol>
+        <symbol id="r2" overflow="visible"><path d="M0 -11V11M0 -9L-7 -3M-7 -3L0 3M0 3L7 9"/></symbol>
+      </defs>
+      <g class="spin-a">
+        <circle class="ring dashed" cx="400" cy="400" r="385"/>
+        <use class="rune" href="#r1" transform="rotate(0 400 400) translate(400 46)"/>
+          <use class="rune" href="#r2" transform="rotate(15 400 400) translate(400 46)"/>
+          <use class="rune" href="#r1" transform="rotate(30 400 400) translate(400 46)"/>
+          <use class="rune" href="#r2" transform="rotate(45 400 400) translate(400 46)"/>
+          <use class="rune" href="#r1" transform="rotate(60 400 400) translate(400 46)"/>
+          <use class="rune" href="#r2" transform="rotate(75 400 400) translate(400 46)"/>
+          <use class="rune" href="#r1" transform="rotate(90 400 400) translate(400 46)"/>
+          <use class="rune" href="#r2" transform="rotate(105 400 400) translate(400 46)"/>
+          <use class="rune" href="#r1" transform="rotate(120 400 400) translate(400 46)"/>
+          <use class="rune" href="#r2" transform="rotate(135 400 400) translate(400 46)"/>
+          <use class="rune" href="#r1" transform="rotate(150 400 400) translate(400 46)"/>
+          <use class="rune" href="#r2" transform="rotate(165 400 400) translate(400 46)"/>
+          <use class="rune" href="#r1" transform="rotate(180 400 400) translate(400 46)"/>
+          <use class="rune" href="#r2" transform="rotate(195 400 400) translate(400 46)"/>
+          <use class="rune" href="#r1" transform="rotate(210 400 400) translate(400 46)"/>
+          <use class="rune" href="#r2" transform="rotate(225 400 400) translate(400 46)"/>
+          <use class="rune" href="#r1" transform="rotate(240 400 400) translate(400 46)"/>
+          <use class="rune" href="#r2" transform="rotate(255 400 400) translate(400 46)"/>
+          <use class="rune" href="#r1" transform="rotate(270 400 400) translate(400 46)"/>
+          <use class="rune" href="#r2" transform="rotate(285 400 400) translate(400 46)"/>
+          <use class="rune" href="#r1" transform="rotate(300 400 400) translate(400 46)"/>
+          <use class="rune" href="#r2" transform="rotate(315 400 400) translate(400 46)"/>
+          <use class="rune" href="#r1" transform="rotate(330 400 400) translate(400 46)"/>
+          <use class="rune" href="#r2" transform="rotate(345 400 400) translate(400 46)"/>
+      </g>
+      <circle class="ring" cx="400" cy="400" r="330"/>
+      <g class="spin-b">
+        <circle class="ring ticks" cx="400" cy="400" r="300"/>
+        <polygon class="ring star" points="400.0,150.0 616.5,525.0 183.5,525.0"/>
+        <polygon class="ring star" points="400.0,650.0 183.5,275.0 616.5,275.0"/>
+      </g>
+      <circle class="ring" cx="400" cy="400" r="190"/>
+      <circle class="ring thin" cx="400" cy="400" r="150"/>
+      <circle class="eye" cx="400" cy="400" r="22"/>
+    </svg>
+  </div>
+
+  <main class="stage">
+    <!-- the Hunter License -->
+    <section class="license" id="license" aria-labelledby="title">
+      <div class="lic-frame">
+        <div class="lic-body">
+
+          <header class="lic-head">
+            <svg class="crest" viewBox="0 0 44 44" aria-hidden="true">
+              <path d="M22 3 39 12.5v19L22 41 5 31.5v-19Z" fill="none" stroke="currentColor" stroke-width="2.4"/>
+              <path d="M14.5 30V21q0-9 7.500-9t7.500 9v9" fill="none" stroke="currentColor" stroke-width="2.4"/>
+              <path d="M22 24l3 3-3 3-3-3Z" fill="currentColor"/>
+            </svg>
+            <div>
+              <p class="kicker">Hunter Association</p>
+              <h1 id="title">Gate Access License</h1>
+            </div>
+          </header>
+
+          <div class="lic-mid">
+            <figure class="portrait" aria-hidden="true">
+              <svg viewBox="0 0 80 96">
+                <rect width="80" height="96" fill="#1d1428"/>
+                <circle cx="40" cy="36" r="15" fill="#3a2a56"/>
+                <path d="M8 96C10 68 24 58 40 58s30 10 32 38Z" fill="#3a2a56"/>
+              </svg>
+              <span class="stamp" id="stamp">Unverified</span>
+            </figure>
+
+            <form id="login-form" novalidate>
+              <div class="field">
+                <label for="hunter-id">Hunter ID</label>
+                <input id="hunter-id" name="username" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" required>
+              </div>
+              <div class="field">
+                <label for="access-key">Access Key</label>
+                <div class="keyrow">
+                  <input id="access-key" name="password" type="password" autocomplete="current-password" required>
+                  <button type="button" id="reveal" class="reveal" aria-pressed="false" aria-controls="access-key">Reveal</button>
+                </div>
+              </div>
+
+              <div class="seals-row">
+                <span class="seals-label">Gate seals</span>
+                <span class="seals" id="seals" role="img" aria-label="5 of 5 gate seals intact">
+                  <i></i><i></i><i></i><i></i><i></i>
+                </span>
+              </div>
+
+              <p id="msg" class="msg" role="alert" aria-live="polite"></p>
+
+              <div class="btn-wrap">
+                <button type="submit" id="open" class="open">Open the Gate</button>
+              </div>
+            </form>
+          </div>
+
+          <footer class="lic-foot">
+            <div class="holo" aria-hidden="true"></div>
+            <div class="foot-row">
+              <span>Authorized hunters only</span>
+              <span>Status: <b id="status">Unverified</b></span>
+            </div>
+          </footer>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- shown once the Gate is open -->
+    <section class="welcome" id="welcome" aria-hidden="true">
+      <p class="kicker">The Gate is open</p>
+      <h2>Welcome, Hunter <span id="who">Sanjey</span></h2>
+      <p class="rank-line">Rank E &middot; Level 1 &middot; Guild: unformed</p>
+      <p class="note">The rest of the Association is still being built.</p>
+      <button type="button" id="logout" class="ghost" tabindex="-1">Close the Gate</button>
+    </section>
+  </main>
+
+  <script src="login.js"></script>
+</body>
+</html>
