@@ -1,0 +1,154 @@
+/* Hunter World - Japan
+ * Theme: a sumo banzuke (rank sheet) and temple ema plaques.
+ * Palette: washi paper, sumi ink, vermilion seal. Not the Gate's violet.
+ */
+:root {
+  --paper: #f3ecdc;
+  --paper-2: #e7dcc2;
+  --ink: #1b1a17;
+  --ink-soft: #5b5246;
+  --vermilion: #c8402b;
+  --gold: #b68a2c;
+  --line: #3a3429;
+  --serif: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", Georgia, serif;
+  --sans: "Zen Kaku Gothic New", "Hiragino Sans", "Noto Sans JP", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background:
+    repeating-linear-gradient(0deg, rgba(27, 26, 23, .025) 0 1px, transparent 1px 3px),
+    var(--paper);
+  color: var(--ink);
+  font: 16px/1.5 var(--sans);
+}
+
+button { font: inherit; color: inherit; cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .45; }
+:focus-visible { outline: 2px solid var(--vermilion); outline-offset: 2px; }
+
+.masthead {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 20px;
+  align-items: end;
+  padding: 28px clamp(16px, 5vw, 56px) 18px;
+  border-bottom: 3px double var(--ink);
+  position: relative;
+}
+.kanji {
+  margin: 0;
+  font: 700 clamp(3.5rem, 12vw, 6rem)/1 var(--serif);
+  color: var(--vermilion);
+  writing-mode: vertical-rl;
+  letter-spacing: .08em;
+}
+.eyebrow { margin: 0; font-size: .8rem; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); }
+h1 { margin: 2px 0 4px; font: 700 clamp(2.2rem, 7vw, 3.6rem)/1 var(--serif); }
+.sub { margin: 0; color: var(--ink-soft); }
+.countries { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.countries button {
+  padding: 6px 14px; background: transparent; border: 1px solid var(--ink);
+  font-family: var(--serif); letter-spacing: .05em;
+}
+.countries button.on { background: var(--ink); color: var(--paper); }
+
+main { padding: 8px clamp(16px, 5vw, 56px) 40px; max-width: 1200px; margin: 0 auto; }
+section { margin-top: 30px; }
+h2 {
+  font: 700 1.35rem/1.2 var(--serif);
+  margin: 0 0 6px;
+  padding-bottom: 6px;
+  border-bottom: 2px solid var(--ink);
+  display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
+}
+.count { font: 600 .8rem var(--sans); color: var(--vermilion); letter-spacing: .08em; }
+.hint { margin: 0 0 14px; color: var(--ink-soft); font-size: .92rem; }
+
+/* institution cards: stamped seal feel */
+.pair { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.inst {
+  background: var(--paper-2); border: 1px solid var(--ink); padding: 16px 18px; position: relative;
+}
+.inst::after {
+  content: attr(data-seal); position: absolute; right: 12px; top: 12px;
+  width: 44px; height: 44px; display: grid; place-items: center;
+  border: 2px solid var(--vermilion); color: var(--vermilion);
+  font: 700 1rem/1 var(--serif); transform: rotate(-8deg);
+}
+.inst h3 { margin: 0 0 8px; font: 700 1.05rem var(--serif); }
+.inst dl { margin: 0; display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; font-size: .92rem; }
+.inst dt { color: var(--ink-soft); }
+.inst dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.inst .neg { color: var(--vermilion); }
+
+/* open hunters as rank rows */
+.ranks { display: grid; gap: 6px; }
+.rank-row { display: grid; grid-template-columns: 52px 1fr auto; gap: 12px; align-items: center; }
+.rank-row b.r {
+  font: 700 1.1rem var(--serif); text-align: center; padding: 6px 0;
+  background: var(--ink); color: var(--paper);
+}
+.bar { height: 14px; background: var(--paper-2); border: 1px solid var(--ink); }
+.bar i { display: block; height: 100%; background: repeating-linear-gradient(45deg, var(--ink) 0 6px, var(--ink-soft) 6px 12px); }
+.rank-row span { font-variant-numeric: tabular-nums; font-weight: 600; min-width: 9ch; text-align: right; }
+
+/* ema plaques: one per guild */
+.plaques { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+.ema {
+  background: var(--gold);
+  border: 2px solid var(--ink);
+  padding: 12px 10px 14px;
+  text-align: center;
+  clip-path: polygon(0 0, 100% 0, 100% 86%, 50% 100%, 0 86%);
+  transition: transform .15s;
+  min-height: 92px;
+}
+.ema:hover, .ema[aria-pressed="true"] { transform: translateY(-3px); }
+.ema[aria-pressed="true"] { background: var(--vermilion); color: var(--paper); }
+.ema .n { font: 700 1rem/1.2 var(--serif); }
+.ema .m { font-size: .78rem; opacity: .85; margin-top: 4px; }
+
+/* roster */
+.roster { background: #fbf7ec; border: 1px solid var(--ink); padding: 16px; margin-top: 24px; }
+.roster h2 { border-bottom-color: var(--vermilion); }
+.roster-tools { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+.roster-tools input {
+  padding: 6px 10px; border: 1px solid var(--ink); background: #fff; font: inherit; min-width: 220px;
+}
+.roster-tools .btn {
+  padding: 6px 12px; background: transparent; border: 1px solid var(--ink); font-size: .85rem;
+}
+.roster-tools .btn:hover { background: var(--ink); color: var(--paper); }
+
+/* tables */
+.table-wrap { overflow-x: auto; border: 1px solid var(--ink); background: #fbf7ec; }
+table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--paper-2); white-space: nowrap; }
+th { background: var(--ink); color: var(--paper); font-weight: 600; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+tr.tag-fallen td { color: var(--ink-soft); }
+tr.tag-villain td:first-child { color: var(--vermilion); font-weight: 700; }
+tr.me td { background: #f2d9a0; }
+.rk { display: inline-block; min-width: 2.2em; text-align: center; font: 700 .9rem var(--serif); }
+.rk.top { background: var(--vermilion); color: var(--paper); padding: 0 6px; }
+
+.tabs { display: flex; gap: 0; margin-bottom: 10px; }
+.tabs button {
+  padding: 8px 18px; background: transparent; border: 1px solid var(--ink); margin-right: -1px;
+  font-family: var(--serif);
+}
+.tabs button[aria-selected="true"] { background: var(--ink); color: var(--paper); }
+
+.colophon { padding: 20px; text-align: center; color: var(--ink-soft); font-size: .8rem; border-top: 1px solid var(--ink); }
+
+@media (min-width: 720px) {
+  .masthead { grid-template-columns: auto 1fr auto; }
+  .countries { grid-column: auto; justify-content: flex-end; margin-top: 0; }
+}
+@media (max-width: 420px) {
+  .kanji { font-size: 3rem; }
+  .plaques { grid-template-columns: repeat(2, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }

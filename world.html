@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hunter World - Japan</title>
+  <meta name="description" content="Japan's Hunter Association, guilds, bank and leaderboards.">
+  <link rel="stylesheet" href="world.css">
+</head>
+<body>
+  <header class="masthead">
+    <p class="kanji" aria-hidden="true">日本</p>
+    <div>
+      <p class="eyebrow">Hunter World / Country 1 of 5</p>
+      <h1>Japan</h1>
+      <p class="sub" id="pop"></p>
+    </div>
+    <nav class="countries" aria-label="Countries">
+      <button type="button" class="on" aria-current="page">Japan</button>
+      <button type="button" disabled title="Coming in a later phase">Korea</button>
+      <button type="button" disabled title="Coming in a later phase">India</button>
+      <button type="button" disabled title="Coming in a later phase">USA</button>
+      <button type="button" disabled title="Coming in a later phase">Next</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="ledger" aria-labelledby="inst">
+      <h2 id="inst">National Institutions</h2>
+      <div class="pair" id="inst-cards"></div>
+    </section>
+
+    <section aria-labelledby="open">
+      <h2 id="open">Open Hunters</h2>
+      <p class="hint" id="open-note"></p>
+      <div class="ranks" id="ranks"></div>
+    </section>
+
+    <section aria-labelledby="guilds">
+      <h2 id="guilds">Anime Guilds <span class="count">50 of 50 full</span></h2>
+      <p class="hint">Each guild is named after an anime and led by its master. Select a plaque to see the roster.</p>
+      <div class="plaques" id="plaques"></div>
+    </section>
+
+    <section class="roster" id="roster" aria-live="polite" hidden></section>
+
+    <section aria-labelledby="boards">
+      <h2 id="boards">Leaderboards</h2>
+      <p class="hint">Top 100 are ranked. Everyone below is unranked. Money is cash minus debt, in INR.</p>
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" aria-selected="true" data-board="world">World</button>
+        <button type="button" role="tab" aria-selected="false" data-board="country">Country</button>
+      </div>
+      <div class="table-wrap" id="board"></div>
+    </section>
+  </main>
+
+  <footer class="colophon">Bot characters are fictional stand-ins inspired by anime. Money figures are game-balance values.</footer>
+  <script src="world.js"></script>
+</body>
+</html>
